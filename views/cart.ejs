@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🛒 Cart | MediCART</title>
+  <base href="/" />
+  <link rel="stylesheet" href="static/css/cart.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <h1>MediCART</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/cart" id="cart-link">
+          🛒 Cart (<span id="cart-count"><%= (session && session.cart ? session.cart.length : 0) %></span>)
+        </a>
+        <a href="/admin/login">Admin Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cart">
+    <h2>Your Shopping Cart</h2>
+
+    <% if (cart && cart.length > 0) { %>
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price (৳)</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% cart.forEach((item, index) => { %>
+            <tr>
+              <td><img src="<%= item.imageUrl %>" alt="<%= item.name %>" /></td>
+              <td><%= item.name %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.price %></td>
+              <td>
+                <form action="/cart/remove" method="POST">
+                  <input type="hidden" name="index" value="<%= index %>" />
+                  <button type="submit" class="remove-btn">✖</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <h3>Total: ৳<%= total %></h3>
+        <a href="/checkout" class="checkout-btn">Proceed to Checkout</a>
+      </div>
+    <% } else { %>
+      <p>Your cart is empty 😢</p>
+      <a href="/shop" class="btn">🛍 Continue Shopping</a>
+    <% } %>
+  </section>
+
+  <footer>
+    <p>© 2025 MediCART | Developed by Tasfia Afrin Mim</p>
+  </footer>
+</body>
+</html>

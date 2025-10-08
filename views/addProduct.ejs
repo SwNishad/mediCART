@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Product | MediCART</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>🩺 Add a New Product</h1>
+
+  <form action="/add-product" method="POST">
+    <input type="text" name="name" placeholder="Product Name" required><br>
+    <input type="text" name="description" placeholder="Description"><br>
+    <input type="number" name="price" placeholder="Price (৳)" step="0.01" required><br>
+    <input type="text" name="category" placeholder="Category"><br>
+    <input type="text" name="imageUrl" placeholder="Image URL"><br>
+    <input type="number" name="stock" placeholder="Stock Quantity"><br>
+    <button type="submit">Add Product</button>
+  </form>
+
+  <p><a href="/">⬅ Back to Home</a></p>
+</body>
+</html>

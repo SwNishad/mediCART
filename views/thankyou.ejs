@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Confirmed | MediCART</title>
+  <base href="/" />
+  <link rel="stylesheet" href="static/css/cart.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f8f9fa;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .thankyou-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+    }
+
+    .thankyou-container h1 {
+      color: #198754;
+      margin-bottom: 15px;
+    }
+
+    .thankyou-container p {
+      color: #333;
+      margin: 8px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #0d6efd;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #0b5ed7;
+    }
+
+    .btn-secondary {
+      background: #198754;
+    }
+
+    .btn-secondary:hover {
+      background: #157347;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="thankyou-container">
+    <h1>✅ Thank You, <%= name %>!</h1>
+    <p>Your order has been placed successfully.</p>
+    <p><strong>Total:</strong> ৳<%= total %></p>
+    <p><strong>Payment Method:</strong> 
+      <%= paymentMethod === "COD" ? "Cash on Delivery" : "Online Payment" %>
+    </p>
+    <p><strong>Delivery Address:</strong> <%= address %></p>
+    <p><strong>Phone:</strong> <%= phone %></p>
+
+    <% if (invoiceId) { %>
+      <a href="/invoice/<%= invoiceId %>" class="btn btn-secondary" target="_blank">
+        📄 Download Invoice (PDF)
+      </a>
+    <% } %>
+
+    <br />
+    <a href="/" class="btn">🏠 Back to Home</a>
+  </div>
+</body>
+</html>

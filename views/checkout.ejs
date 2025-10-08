@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout | MediCART</title>
+  <base href="/" />
+  <link rel="stylesheet" href="static/css/cart.css" />
+  <style>
+    .checkout-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    .checkout-container h1 {
+      color: #0d6efd;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .checkout-summary {
+      margin-bottom: 30px;
+    }
+
+    .checkout-summary table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .checkout-summary th,
+    .checkout-summary td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .checkout-summary th {
+      background: #f1f1f1;
+    }
+
+    .checkout-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .payment-methods {
+      margin: 10px 0;
+    }
+
+    .checkout-btn {
+      display: inline-block;
+      background: #198754;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background: #157347;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      color: #0d6efd;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="navbar">
+      <h1>MediCART</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/cart">🛒 Cart (<%= (session && session.cart ? session.cart.length : 0) %>)</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="checkout-container">
+    <h1>🧾 Checkout</h1>
+
+    <% if (cart && cart.length > 0) { %>
+      <div class="checkout-summary">
+        <h3>Order Summary</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price (৳)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cart.forEach(item => { %>
+              <tr>
+                <td><%= item.name %></td>
+                <td><%= item.quantity %></td>
+                <td><%= item.price %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <h3>Total: ৳<%= total %></h3>
+      </div>
+
+      <form class="checkout-form" action="/checkout" method="POST">
+        <input type="text" name="name" placeholder="Full Name" required />
+        <input type="text" name="address" placeholder="Delivery Address" required />
+        <input type="text" name="phone" placeholder="Phone Number" required />
+
+        <div class="payment-methods">
+          <label><input type="radio" name="paymentMethod" value="COD" checked /> Cash on Delivery</label><br />
+          <label><input type="radio" name="paymentMethod" value="ONLINE" /> Online Payment</label>
+        </div>
+
+        <button type="submit" class="checkout-btn">✅ Place Order</button>
+      </form>
+    <% } else { %>
+      <p>Your cart is empty. Please add items before checkout.</p>
+      <a href="/shop" class="back-link">⬅ Back to Shop</a>
+    <% } %>
+  </div>
+
+  <footer>
+    <p>© 2025 MediCART | Developed by Tasfia Afrin Mim</p>
+  </footer>
+</body>
+</html>

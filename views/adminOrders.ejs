@@ -1,0 +1,25 @@
+<tbody>
+  <% orders.forEach(order => { %>
+    <% order.items.forEach(item => { %>
+      <tr>
+        <td><%= order._id %></td>
+        <td><%= item.product ? item.product.name : 'Deleted Product' %></td>
+        <td><%= item.quantity %></td>
+        <td><%= order.totalPrice %></td>
+        <td><%= order.address %></td>
+        <td><%= order.paymentStatus %></td>
+        <td><%= new Date(order.orderDate).toLocaleString() %></td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <form action="/admin/orders/<%= order._id %>/delivered" method="POST" style="display:inline;">
+            <button type="submit" style="background:#28a745;color:#fff;padding:6px 10px;border:none;border-radius:5px;">Mark Delivered ✅</button>
+          </form>
+          <form action="/admin/orders/<%= order._id %>/paid" method="POST" style="display:inline;">
+            <button type="submit" style="background:#007bff;color:#fff;padding:6px 10px;border:none;border-radius:5px;">Mark Paid 💰</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  <% }) %>
+</tbody>

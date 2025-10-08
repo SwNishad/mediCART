@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MediCART Admin Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body { font-family: Arial; text-align: center; background: #f4f4f4; }
+    header { background: #007bff; color: white; padding: 10px 0; }
+    table { width: 90%; margin: 20px auto; border-collapse: collapse; background: white; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: center; }
+    th { background: #007bff; color: white; }
+    form { margin: 10px 0; }
+    input, button { padding: 8px; margin: 5px; }
+    .logout { float: right; margin-right: 20px; color: white; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MediCART Admin Panel</h1>
+    <a href="/admin/logout" class="logout">🚪 Logout</a>
+  </header>
+
+  <h2>Welcome, <%= admin %> 👋</h2>
+
+  <h3>🩺 Add New Product</h3>
+  <form action="/admin/add-product" method="POST">
+    <input type="text" name="name" placeholder="Product Name" required>
+    <input type="text" name="description" placeholder="Description">
+    <input type="number" name="price" placeholder="Price (৳)" required>
+    <input type="text" name="category" placeholder="Category">
+    <input type="text" name="imageUrl" placeholder="Image URL">
+    <input type="number" name="stock" placeholder="Stock" required>
+    <button type="submit">Add Product</button>
+  </form>
+
+  <h3>📦 Existing Products</h3>
+  <% if (products.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price (৳)</th>
+          <th>Category</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(p => { %>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= p.description %></td>
+            <td><%= p.price %></td>
+            <td><%= p.category %></td>
+            <td><%= p.stock %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No products yet 🕊️</p>
+  <% } %>
+</body>
+</html>
